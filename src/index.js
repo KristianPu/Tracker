@@ -1,5 +1,9 @@
 const { app, BrowserWindow } = require('electron');
+const electron = require('electron');
 const path = require('path');
+
+// Enable live reload for all the files inside your project directory
+require('electron-reload')(__dirname);
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require('electron-squirrel-startup')) {
@@ -10,9 +14,13 @@ if (require('electron-squirrel-startup')) {
 const createWindow = () => {
   // Create the browser window.
   const mainWindow = new BrowserWindow({
-    width: 800,
-    height: 600,
+    width: 1200,
+    height: 800,
+    //autoHideMenuBar: true, // starts the window with the menu hidden, use alt to reveal/hide
   });
+
+  // remove the menu completely
+  mainWindow.setMenu(null);
 
   // and load the index.html of the app.
   mainWindow.loadFile(path.join(__dirname, 'index.html'));
