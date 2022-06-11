@@ -7,6 +7,7 @@ require('electron-reload')(__dirname);
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require('electron-squirrel-startup')) {
+
   // eslint-disable-line global-require
   app.quit();
 }
@@ -16,14 +17,21 @@ const createWindow = () => {
   const mainWindow = new BrowserWindow({
     width: 1200,
     height: 800,
-    //autoHideMenuBar: true, // starts the window with the menu hidden, use alt to reveal/hide
+    // icon: path.join(__dirname, 'icons/icon_top_bar.ico'),
+    frame: false,
+    show: false,
+    webPreferences: {
+      devTools: false,
+    }
   });
+
+  mainWindow.on("ready-to-show", mainWindow.show);
 
   // remove the menu completely
   mainWindow.setMenu(null);
 
   // and load the index.html of the app.
-  mainWindow.loadFile(path.join(__dirname, 'index.html'));
+  mainWindow.loadFile(path.join(__dirname, '/app/index.html'));
 
   // Open the DevTools.
   // mainWindow.webContents.openDevTools();
