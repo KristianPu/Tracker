@@ -1,9 +1,13 @@
-const { app, BrowserWindow } = require('electron');
+const { app, BrowserWindow, ipcMain } = require('electron');
 const electron = require('electron');
 const path = require('path');
+// app.whenReady().then(main);
+// const { currentLoad, cpu } = require("systeminformation")
 
 // Enable live reload for all the files inside your project directory
 require('electron-reload')(__dirname);
+
+let window;
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require('electron-squirrel-startup')) {
@@ -14,24 +18,26 @@ if (require('electron-squirrel-startup')) {
 
 const createWindow = () => {
   // Create the browser window.
-  const mainWindow = new BrowserWindow({
+  window = new BrowserWindow({
     width: 1200,
     height: 800,
     // icon: path.join(__dirname, 'icons/icon_top_bar.ico'),
     frame: false,
     show: false,
     webPreferences: {
-      devTools: false,
+      devTools: true,
+      preload: path.join(__dirname + "/backend/preload.js"),
     }
   });
 
-  mainWindow.on("ready-to-show", mainWindow.show);
+  window.on("ready-to-show", window.show);
+  window.webContents.openDevTools()
 
   // remove the menu completely
-  mainWindow.setMenu(null);
+  window.setMenu(null);
 
   // and load the index.html of the app.
-  mainWindow.loadFile(path.join(__dirname, '/app/index.html'));
+  window.loadFile(path.join(__dirname, '/app/index.html'));
 
   // Open the DevTools.
   // mainWindow.webContents.openDevTools();
@@ -59,5 +65,14 @@ app.on('activate', () => {
   }
 });
 
-// In this file you can include the rest of your app's specific main process
-// code. You can also put them in separate files and import them here.
+ipcMain.on("app/close", () => {
+  app.quit();
+})
+
+// ipcMain.on("app/resize", () => {
+//   app.;
+// })
+
+ipcMain.on("app/minimize", () => {
+  window.minimize();
+})
