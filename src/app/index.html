@@ -4,36 +4,29 @@
     <meta charset="UTF-8" />
     <title>Tracker</title>
     <link rel="stylesheet" href="./index.css" />
-    <link href="../icons/fontawesome-free-6.1.1-web/css/all.css" rel="stylesheet"></link>
   </head>
   <body>
 
     <div class="title-bar">
-
-      <!-- <div class="right-title-bar"> -->
       <span class="title-bar-link" id="minimize"><img class="title-icons" src="./images/minimize.png"></span>
       <span class="title-bar-link" id="resize"><img class="title-icons" src="./images/full-screen.png"></span>
       <span class="title-bar-link" id="close-app"><img class="title-icons" src="./images/exit.png"></span>
-      <!-- </div> -->
-
     </div>
     
     <div class="container">
+      <nav>
+        <a href="#second"><img class="left-nav-icons" src="../app/icons/project.png" alt=""></a>
+        <a href="#third"><img class="left-nav-icons" src="../app/icons/organization.png" alt=""></a>
+        <a href="#fourth"><img class="left-nav-icons" src="../app/icons/timeline.png" alt=""></a>
+      </nav>
+    </div>
 
-    <nav>
-      <a href="#second"><img class="left-nav-icons" src="../app/icons/project.png" alt=""></a>
-      <a href="#third"><img class="left-nav-icons" src="../app/icons/organization.png" alt=""></a>
-      <a href="#fourth"><img class="left-nav-icons" src="../app/icons/timeline.png" alt=""></a>
-    </nav>
+    <div class="bottom-float">
+      <a href="#first"><img class="bottom-right-icon" src="../app/icons/record.png" alt=""></a>
+    </div>
 
-  </div>
-
-  <div class="bottom-float">
-    <a href="#first"><img class="bottom-right-icon" src="../app/icons/record.png" alt=""></a>
-  </div>
-
-  <script src="./renderer.js" defer type="module"></script>
-  <script src="./js/window.js" defer type="module"></script>
+    <script src="./renderer.js" defer type="module"></script>
+    <script src="./js/window.js" defer type="module"></script>
 
   </body>
 </html>

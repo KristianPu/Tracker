@@ -24,8 +24,9 @@ const createWindow = () => {
     // icon: path.join(__dirname, 'icons/icon_top_bar.ico'),
     frame: false,
     show: false,
+    useContentSize: true,
     webPreferences: {
-      devTools: true,
+      // devTools: false,
       preload: path.join(__dirname + "/backend/preload.js"),
     }
   });
@@ -69,9 +70,13 @@ ipcMain.on("app/close", () => {
   app.quit();
 })
 
-// ipcMain.on("app/resize", () => {
-//   app.;
-// })
+ipcMain.on("app/resize", async () => {
+  if (window.isMaximized()) {
+    window.unmaximize();
+  } else {
+    window.maximize();
+  }
+})
 
 ipcMain.on("app/minimize", () => {
   window.minimize();
