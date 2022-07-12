@@ -1,11 +1,11 @@
 const { app, BrowserWindow, ipcMain } = require('electron');
+require('dotenv').config();
 const electron = require('electron');
 const path = require('path');
-// app.whenReady().then(main);
-// const { currentLoad, cpu } = require("systeminformation")
 
 // Enable live reload for all the files inside your project directory
 require('electron-reload')(__dirname);
+require("./backend/models/index");
 
 let window;
 
@@ -38,6 +38,7 @@ const createWindow = () => {
   window.setMenu(null);
 
   // and load the index.html of the app.
+  ipcMain.handle('ping', () => 'pong')
   window.loadFile(path.join(__dirname, '/app/index.html'));
 
   // Open the DevTools.
