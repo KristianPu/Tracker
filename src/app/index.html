@@ -8,11 +8,10 @@
   <body>
 
     <div class="title-bar">
-      <span class="title-bar-link" id="minimize"><img class="title-icons" src="./images/minimize.png"></span>
-      <span class="title-bar-link" id="resize"><img class="title-icons" src="./images/full-screen.png"></span>
-      <span class="title-bar-link" id="close-app"><img class="title-icons" src="./images/exit.png"></span>
+      <span class="title-bar-link" id="minimize"><img class="title-icons" src="./images/minimize.png" alt="Minimize"></span>
+      <span class="title-bar-link" id="resize"><img class="title-icons" src="./images/full-screen.png" alt="Resize"></span>
+      <span class="title-bar-link" id="close-app"><img class="title-icons" src="./images/exit.png" alt="Exit"></span>
     </div>
-    <div id="info"></div>
     
     <div class="container">
       <nav>
@@ -22,12 +21,32 @@
       </nav>
     </div>
 
+    <div class="form">
+      <form  id="taskForm" class="card">
+        <input type="text" id="projectName" placeholder="New Project Name">
+        <input type="submit" value="Add">
+      </form>
+      <p>You have:</p>
+      <p id="counter"></p>
+      <form id="editForm" class="card">
+        <input type="text" id="oldName" name="old name" placeholder="old name" />
+        <input type="text" id="newName" name="new name" placeholder="new name" />
+        <button id="updateitem">Update</button>
+      </form>
+      <button class="refreshButton" id="refresh">Get All</button>
+      <table>
+        <tr class="to-do">
+          <th><h3>To-Do:</h3></th>
+        </tr>
+        <tbody id="tasks">
+        </tbody>
+      </table>
+    </div>
+
     <div class="bottom-float">
       <a href="#first"><img class="bottom-right-icon" src="../app/icons/record.png" alt=""></a>
     </div>
-
-    <script src="./renderer.js" defer type="module"></script>
-    <script src="./js/window.js" defer type="module"></script>
-
+    
+    <script src="renderer.js" defer type="module"></script>
   </body>
 </html>

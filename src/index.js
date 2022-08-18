@@ -1,11 +1,9 @@
 const { app, BrowserWindow, ipcMain } = require('electron');
 require('dotenv').config();
-const electron = require('electron');
 const path = require('path');
-
-// Enable live reload for all the files inside your project directory
 require('electron-reload')(__dirname);
-require("./backend/models/index");
+const Project = require("./backend/models/Project");
+require("./backend/models/database");
 
 let window;
 
@@ -17,32 +15,24 @@ if (require('electron-squirrel-startup')) {
 }
 
 const createWindow = () => {
-  // Create the browser window.
+
   window = new BrowserWindow({
     width: 1200,
     height: 800,
-    // icon: path.join(__dirname, 'icons/icon_top_bar.ico'),
-    frame: false,
+    // frame: false, //temp solution to see devTools
     show: false,
     useContentSize: true,
     webPreferences: {
-      // devTools: false,
+      nodeIntegration: true,
       preload: path.join(__dirname + "/backend/preload.js"),
     }
   });
-
   window.on("ready-to-show", window.show);
-  window.webContents.openDevTools()
-
+  
   // remove the menu completely
-  window.setMenu(null);
+  // window.setMenu(null);
 
-  // and load the index.html of the app.
-  ipcMain.handle('ping', () => 'pong')
   window.loadFile(path.join(__dirname, '/app/index.html'));
-
-  // Open the DevTools.
-  // mainWindow.webContents.openDevTools();
 };
 
 // This method will be called when Electron has finished
@@ -81,4 +71,54 @@ ipcMain.on("app/resize", async () => {
 
 ipcMain.on("app/minimize", () => {
   window.minimize();
+})
+
+ipcMain.on("greet", (args) => {
+  console.log(args)
+})
+
+ipcMain.handle("get/version", async () => {
+  return 1;
+})
+
+ipcMain.handle("app/getAll", async () => {
+  try{
+    const allProjects = await Project.find();
+    return JSON.stringify(allProjects);
+  } catch (e) {
+    console.log(e);
+  }
+})
+
+ipcMain.on("app/postOne", async (event, data) => {
+  try {
+
+    const date = { "name": data }
+    await Project.create(date)
+
+  } catch (e) {
+    console.log(e);
+  }
+})
+
+
+ipcMain.on("app/editOne", async (event, oldName, newName) => {
+  try {
+
+    const filter = { name: oldName };
+    const update = { $set: {name: newName }}
+    await Project.updateOne(filter, update);
+
+  } catch (e) {
+    console.log(e);
+  }
+})
+
+
+ipcMain.on("app/deleteOne", async (event, id) => {
+  try {
+    await Project.deleteOne({_id: id})
+  } catch (e) {
+    console.log(e)
+  }
 })

@@ -1,17 +1,16 @@
 const  { ipcRenderer, contextBridge } = require("electron");
 
-const ping = () => ipcRenderer.invoke('ping')
-
 const API = {
     window: {
         close: () => ipcRenderer.send("app/close"),
         resize: () => ipcRenderer.send("app/resize"),
-        minimize: () => ipcRenderer.send("app/minimize")
+        minimize: () => ipcRenderer.send("app/minimize"),
     },
+    getAllProjects: () => ipcRenderer.invoke("app/getAll"),
+    postOneProject: (data) => ipcRenderer.send("app/postOne", data),
+    editOneProject: (oldName, newName) => ipcRenderer.send("app/editOne", oldName, newName),
+    deleteOneProject: (data) => ipcRenderer.send("app/deleteOne", data),
     electron: () => process.versions.electron,
-    ping,
 }
-
-// pozvati funckiju iz vana unutra npr ping bi bio ping: ping()
 
 contextBridge.exposeInMainWorld("app", API);
