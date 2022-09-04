@@ -6,11 +6,10 @@ const API = {
         resize: () => ipcRenderer.send("app/resize"),
         minimize: () => ipcRenderer.send("app/minimize"),
     },
-    getAllProjects: () => ipcRenderer.invoke("app/getAll"),
-    postOneProject: (data) => ipcRenderer.send("app/postOne", data),
-    editOneProject: (oldName, newName) => ipcRenderer.send("app/editOne", oldName, newName),
-    deleteOneProject: (data) => ipcRenderer.send("app/deleteOne", data),
-    electron: () => process.versions.electron,
+    getAllProjects: () => ipcRenderer.invoke("app/getAllProjects"),
+    postOneProject: (data) => ipcRenderer.send("app/postOneProject", data),
+    editOneProject: (oldName, newName) => ipcRenderer.send("app/editOneProject", oldName, newName),
+    deleteOneProject: (data) => ipcRenderer.send("app/deleteOneProject", data),
 }
 
 contextBridge.exposeInMainWorld("app", API);
