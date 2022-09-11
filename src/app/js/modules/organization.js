@@ -1,5 +1,5 @@
 const taskForm = document.querySelector("#taskForm");
-const projectName = document.querySelector("#projectName");
+const organizationName = document.querySelector("#organizationName");
 const oldName = document.querySelector("#oldName");
 const newName = document.querySelector("#newName");
 const editForm = document.getElementById('editForm');
@@ -7,19 +7,20 @@ const refreshButton = document.getElementById('refresh');
 let el = document.getElementById('tasks');
 
 async function getAll () {
-    return await app.getAllProjects();
+    return await app.getAllOrganizations();
 }
 
 async function postOne (args) {
-    await app.postOneProject(args);
+    console.log(args);
+    await app.postOneOrganization(args);
 }
 
 async function editOne (param1, param2) {
-    await app.editOneProject(param1, param2);
+    await app.editOneOrganization(param1, param2);
 }
 
 async function deleteOne (args) {
-    await app.deleteOneProject(args);
+    await app.deleteOneOrganization(args);
 }
 
 let FetchAll = function(tasks) {
@@ -65,7 +66,7 @@ refreshButton.addEventListener("click", async () => {
 taskForm.addEventListener("submit", async (e) => {
 
     e.preventDefault()
-    await postOne(projectName.value);
+    await postOne(organizationName.value);
     taskForm.reset();
     let refresh = await getAll()
     FetchAll(refresh)

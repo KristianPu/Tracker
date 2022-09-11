@@ -1,45 +1,29 @@
 const Project = require("../models/project.model");
+const { columnName } = require("../helpers/enums")
+const { crudFunctions } = require("../repositories");
 
 const getAllProjects = async () => {
-    try{
-      const allProjects = await Project.find();
-      return JSON.stringify(allProjects);
-    } catch (e) {
-      console.log(e);
-    }
+  return await crudFunctions.getAll(Project);
 }
 
-async function getOneProject(event, data) {
-    try {
-        const date = { "name" : data }
-        await Project.create(date)
-      } catch (e) {
-        console.log(e);
-      }
+const createOneProject = async (event, data) => {
+  const post = { "name": data }
+  return await crudFunctions.createOne(post, Project);
 }
 
 async function editOneProject(oldName, newName) {
-    try {
-        const filter = { name: oldName };
-        const update = { $set: {name: newName }}
-        await Project.updateOne(filter, update);
-
-      } catch (e) {
-        console.log(e);
-      }
+  const filter = { "name": oldName };
+  const update = { $set: {"name": newName }}
+  return await crudFunctions.editOne(filter, update, Project);
 }
 
 async function deleteOneProject(id) {
-    try {
-        await Project.deleteOne({_id: id})
-      } catch (e) {
-        console.log(e)
-      }
+  return await crudFunctions.deleteOne(id, Project);
 }
 
 module.exports = {
     getAllProjects,
-    getOneProject,
+    createOneProject,
     editOneProject,
     deleteOneProject,
 }

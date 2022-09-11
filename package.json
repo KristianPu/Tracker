@@ -50,6 +50,7 @@
     "dotenv": "^16.0.1",
     "electron-reload": "^2.0.0-alpha.1",
     "electron-squirrel-startup": "^1.0.0",
+    "enum": "^3.0.4",
     "mongodb": "^4.8.1",
     "mongoose": "^6.5.2",
     "mysql": "^2.18.1",

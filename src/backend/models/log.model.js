@@ -4,7 +4,7 @@ const newLogSchema = new Schema({
     timeSpent: {
         type: Number,
     },
-    lastName: {
+    dateCreated: {
         type: Date,
     },
     },

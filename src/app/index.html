@@ -3,51 +3,23 @@
   <head>
     <meta charset="UTF-8" />
     <title>Tracker</title>
-    <link rel="stylesheet" href="./index.css" />
+    <link rel="stylesheet" href="./css/style.css" />
   </head>
   <body>
-
     <div class="title-bar">
       <span class="title-bar-link" id="minimize"><img class="title-icons" src="./images/minimize.png" alt="Minimize"></span>
       <span class="title-bar-link" id="resize"><img class="title-icons" src="./images/full-screen.png" alt="Resize"></span>
       <span class="title-bar-link" id="close-app"><img class="title-icons" src="./images/exit.png" alt="Exit"></span>
     </div>
-    
     <div class="container">
-      <nav>
-        <a href="#second"><img class="left-nav-icons" src="../app/icons/project.png" alt=""></a>
-        <a href="#third"><img class="left-nav-icons" src="../app/icons/organization.png" alt=""></a>
-        <a href="#fourth"><img class="left-nav-icons" src="../app/icons/timeline.png" alt=""></a>
-      </nav>
-    </div>
-
-    <div class="form">
-      <form  id="taskForm" class="card">
-        <input type="text" id="projectName" placeholder="New Project Name">
-        <input type="submit" value="Add">
-      </form>
-      <p>You have:</p>
-      <p id="counter"></p>
-      <form id="editForm" class="card">
-        <input type="text" id="oldName" name="old name" placeholder="old name" />
-        <input type="text" id="newName" name="new name" placeholder="new name" />
-        <button id="updateitem">Update</button>
-      </form>
-      <button class="refreshButton" id="refresh">Get All</button>
-      <table>
-        <tr class="to-do">
-          <th><h3>To-Do:</h3></th>
-        </tr>
-        <tbody id="tasks">
-        </tbody>
-      </table>
-    </div>
-
-    <div class="bottom-float">
-      <a href="#first"><img class="bottom-right-icon" src="../app/icons/record.png" alt=""></a>
+        <nav>
+            <a href="./html/project.html"><img class="left-nav-icons" src="../app/icons/project.png" alt="project"></a>
+            <a href="./html/organization.html"><img class="left-nav-icons" src="../app/icons/organization.png" alt="organization"></a>
+            <a href="./html/user.html"><img class="left-nav-icons" src="../app/icons/timeline.png" alt="timeline"></a>
+            <a href="./html/log.html"><img class="left-nav-icons" src="../app/icons/log.png" alt="log"></a>
+        </nav>
     </div>
     
     <script src="renderer.js" defer type="module"></script>
-    <script src="./js/modules/project.js" type="module"></script>
   </body>
 </html>

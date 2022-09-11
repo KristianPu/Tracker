@@ -1,5 +1,5 @@
 const taskForm = document.querySelector("#taskForm");
-const projectName = document.querySelector("#projectName");
+const userName = document.querySelector("#userName");
 const oldName = document.querySelector("#oldName");
 const newName = document.querySelector("#newName");
 const editForm = document.getElementById('editForm');
@@ -7,19 +7,19 @@ const refreshButton = document.getElementById('refresh');
 let el = document.getElementById('tasks');
 
 async function getAll () {
-    return await app.getAllProjects();
+    return await app.getAllUsers();
 }
 
 async function postOne (args) {
-    await app.postOneProject(args);
+    await app.postOneUser(args);
 }
 
 async function editOne (param1, param2) {
-    await app.editOneProject(param1, param2);
+    await app.editOneUser(param1, param2);
 }
 
 async function deleteOne (args) {
-    await app.deleteOneProject(args);
+    await app.deleteOneUser(args);
 }
 
 let FetchAll = function(tasks) {
@@ -29,8 +29,9 @@ let FetchAll = function(tasks) {
 
     if (parsedTasks.length > 0) {
     for (let i = 0; i < parsedTasks.length; i++) {
+        console.log(parsedTasks[i])
         data += '<tr>';
-        data += `<td class="class" id="${parsedTasks[i]._id}">${parsedTasks[i].name + "</td>"}`;
+        data += `<td class="class" id="${parsedTasks[i]._id}">${parsedTasks[i].firstName + "</td>"}`;
         data += `<td><button id="delButton-btn-${i.toString()}" class="btn btn-danger">Delete</button></td>`;
         data += '</tr>';
         el.innerHTML = data;
@@ -65,7 +66,7 @@ refreshButton.addEventListener("click", async () => {
 taskForm.addEventListener("submit", async (e) => {
 
     e.preventDefault()
-    await postOne(projectName.value);
+    await postOne(userName.value);
     taskForm.reset();
     let refresh = await getAll()
     FetchAll(refresh)

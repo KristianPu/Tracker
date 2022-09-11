@@ -3,19 +3,16 @@ const { model, Schema } = require("mongoose");
 const newUserSchema = new Schema({
     firstName: {
         type: String,
-        writable: true,
+        // writable: true,
     },
     lastName: {
         type: String,
-        writable: true,
     },
     email: {
         type: String,
-        writable: true,
     },
     password: {
         type: String,
-        writable: true,
     },
     dateCreated: {
         type: Date,
