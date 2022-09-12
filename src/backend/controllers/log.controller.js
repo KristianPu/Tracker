@@ -1,5 +1,4 @@
 const Log = require("../models/log.model");
-const { columnName } = require("../helpers/enums")
 const { crudFunctions } = require("../repositories");
 
 const getAllLogs = async () => {

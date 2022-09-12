@@ -1,4 +1,6 @@
-const { model, Schema } = require("mongoose");
+const { model, Schema, Types } = require("mongoose");
+const { newProjectSchema } = require("./project.model");
+const { newUserSchema } = require("./user.model");
 
 const newLogSchema = new Schema({
     timeSpent: {
@@ -6,6 +8,12 @@ const newLogSchema = new Schema({
     },
     dateCreated: {
         type: Date,
+    },
+    projectId: {
+        type: Types.ObjectId, ref: 'Project'
+    },
+    userId: {
+        type: Types.ObjectId, ref: 'User'
     },
     },
 );

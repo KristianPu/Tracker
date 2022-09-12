@@ -1,5 +1,4 @@
 const Project = require("../models/project.model");
-const { columnName } = require("../helpers/enums")
 const { crudFunctions } = require("../repositories");
 
 const getAllProjects = async () => {

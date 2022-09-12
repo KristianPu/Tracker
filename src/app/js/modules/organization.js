@@ -11,7 +11,6 @@ async function getAll () {
 }
 
 async function postOne (args) {
-    console.log(args);
     await app.postOneOrganization(args);
 }
 

@@ -1,5 +1,4 @@
 const User = require("../models/user.model");
-const { columnName } = require("../helpers/enums")
 const { crudFunctions } = require("../repositories");
 
 const getAllUsers = async () => {

@@ -1,5 +1,4 @@
 const Organization = require("../models/organization.model");
-const { columnName } = require("../helpers/enums")
 const { crudFunctions } = require("../repositories");
 
 const getAllOrganizations = async () => {

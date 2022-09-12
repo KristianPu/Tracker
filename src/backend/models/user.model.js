@@ -3,7 +3,6 @@ const { model, Schema } = require("mongoose");
 const newUserSchema = new Schema({
     firstName: {
         type: String,
-        // writable: true,
     },
     lastName: {
         type: String,
