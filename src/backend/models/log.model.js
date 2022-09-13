@@ -1,4 +1,4 @@
-const { model, Schema, Types } = require("mongoose");
+const { model, Schema } = require("mongoose");
 const { newProjectSchema } = require("./project.model");
 const { newUserSchema } = require("./user.model");
 
@@ -10,10 +10,10 @@ const newLogSchema = new Schema({
         type: Date,
     },
     projectId: {
-        type: Types.ObjectId, ref: 'Project'
+        type: Schema.Types.ObjectId, ref: 'Project'
     },
     userId: {
-        type: Types.ObjectId, ref: 'User'
+        type: Schema.Types.ObjectId, ref: 'User'
     },
     },
 );

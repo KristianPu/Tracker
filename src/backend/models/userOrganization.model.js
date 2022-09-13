@@ -1,13 +1,11 @@
-const { model, Schema, Types } = require("mongoose");
-const { newUserSchema } = require("./user.model");
-const { newOrganizationSchema } = require("./organization.model");
+const { model, Schema } = require("mongoose");
 
 const newUserOrganizationSchema = new Schema({
     userId: {
-        type: Types.ObjectId, ref: 'User'
+        type: Schema.Types.ObjectId, ref: 'User'
     },
     organizationId: {
-        type: Types.ObjectId, ref: 'Organization'
+        type: Schema.Types.ObjectId, ref: 'Organization'
     }
 })
 

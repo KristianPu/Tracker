@@ -18,7 +18,7 @@ const createWindow = () => {
   window = new BrowserWindow({
     width: 1200,
     height: 800,
-    // frame: false, // temp solution to see devTools
+    // frame: false, // temp solution to see devTools/
     show: false,
     useContentSize: true,
     webPreferences: {

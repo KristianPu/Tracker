@@ -1,4 +1,4 @@
-const { model, Schema, Types } = require("mongoose");
+const { model, Schema } = require("mongoose");
 const { newOrganizationSchema } = require("./organization.model");
 
 const newProjectSchema = new Schema({
@@ -16,7 +16,7 @@ const newProjectSchema = new Schema({
         type: Date,
     },
     organizationId: {
-        type: Types.ObjectId, ref: 'Organization'
+        type: Schema.Types.ObjectId, ref: 'Organization'
     }
     },
 );
