@@ -1,11 +1,3 @@
-const taskForm = document.querySelector("#taskForm");
-const projectName = document.querySelector("#projectName");
-const oldName = document.querySelector("#oldName");
-const newName = document.querySelector("#newName");
-const editForm = document.getElementById('editForm');
-const refreshButton = document.getElementById('refresh');
-let el = document.getElementById('tasks');
-
 async function getAll () {
     return await app.getAllProjects();
 }
@@ -22,76 +14,81 @@ async function deleteOne (args) {
     await app.deleteOneProject(args);
 }
 
-let FetchAll = function(tasks) {
+window.addEventListener('load', async () => {
 
-    let data = '';
-    const parsedTasks = JSON.parse(tasks)
+	const form = document.querySelector("#new-task-form");
+	const input = document.querySelector("#new-task-input");
+	const list_el = document.querySelector("#tasks");
+	const list_tasks_obj = JSON.parse(await getAll());
+	showTasks(list_tasks_obj);
 
-    if (parsedTasks.length > 0) {
-    for (let i = 0; i < parsedTasks.length; i++) {
-        data += '<tr>';
-        data += `<td class="class" id="${parsedTasks[i]._id}">${parsedTasks[i].name + "</td>"}`;
-        data += `<td><button id="delButton-btn-${i.toString()}" class="btn btn-danger">Delete</button></td>`;
-        data += '</tr>';
-        el.innerHTML = data;
-    }
-    const table = document.querySelector("table");
-    for (const currentRow of table.rows) {
-        if (!currentRow.textContent.endsWith("Delete")) {
-            continue;
-        }
-        const buttonDelete = currentRow.getElementsByTagName("button")[0]
-        const tdText = currentRow.getElementsByTagName("td")[0].id
+	async function showTasks (list) {
 
-        buttonDelete.addEventListener("click", async () => {
-            await deleteOne(tdText);
-            let refresh = await getAll()
-            FetchAll(refresh)
-        })
-    }
-    }
-    Count(parsedTasks.length);
-};
+		list_el.replaceChildren()
 
-function CloseInput() {
-    document.getElementById('edit-box').style.display = 'none';
-}
+		list.forEach(task => {
 
-refreshButton.addEventListener("click", async () => {
-    let refresh = await getAll()
-    FetchAll(refresh)
-})
+			const task_el = document.createElement('div');
+			task_el.classList.add('task');
 
-taskForm.addEventListener("submit", async (e) => {
+			const task_content_el = document.createElement('div');
+			task_content_el.classList.add('content');
+			task_el.appendChild(task_content_el);
 
-    e.preventDefault()
-    await postOne(projectName.value);
-    taskForm.reset();
-    let refresh = await getAll()
-    FetchAll(refresh)
-})
+			const task_input_el = document.createElement('input');
+			task_input_el.classList.add('text');
+			task_input_el.type = 'text';
+			task_input_el.value = task.name;
+			task_input_el.setAttribute('readonly', 'readonly');
+			task_content_el.appendChild(task_input_el);
 
+			const task_actions_el = document.createElement('div');
+			task_actions_el.classList.add('actions');
+			
+			const task_edit_el = document.createElement('button');
+			task_edit_el.classList.add('edit');
+			task_edit_el.innerText = 'Edit';
 
-editForm.addEventListener("submit", async (e) => {
+			const task_delete_el = document.createElement('button');
+			task_delete_el.classList.add('delete');
+			task_delete_el.innerText = 'Delete';
 
-    e.preventDefault()
-    await editOne(oldName.value, newName.value);
-    editForm.reset();
-    let refresh = await getAll()
-    FetchAll(refresh)
-})
+			task_actions_el.appendChild(task_edit_el);
+			task_actions_el.appendChild(task_delete_el);
 
-let Count = function(data) {
-    let el = document.getElementById('counter');
-    let name = 'Tasks';
+			task_el.appendChild(task_actions_el);
 
-    if (data) {
-        if(data ==1){
-            name = 'Task'
-        }
-    el.innerHTML = data + ' ' + name ;
-    } 
-    else {
-    el.innerHTML = 'No ' + name;
-    }
-};
+			list_el.appendChild(task_el);
+
+			task_edit_el.addEventListener('click', async (e) => {
+				if (task_edit_el.innerText.toLowerCase() == "edit") {
+					task_edit_el.innerText = "Save";
+					task_input_el.removeAttribute("readonly");
+					task_input_el.focus();
+				} else {
+					await editOne(task._id, task_input_el.value)
+					task_edit_el.innerText = "Edit";
+					task_input_el.setAttribute("readonly", "readonly");
+				}
+			});
+	
+			task_delete_el.addEventListener('click', async (e) => {
+				list_el.removeChild(task_el);
+				await deleteOne(task._id);
+			});
+		})
+	}
+
+	// slusa Add task button
+	form.addEventListener('submit', async (e) => {
+		e.preventDefault();
+
+		//naziv task-a
+		const task = input.value;
+		await postOne(task);
+		input.value = '';
+
+		const list_tasks_obj = JSON.parse(await getAll());
+		showTasks(list_tasks_obj);
+	});
+});

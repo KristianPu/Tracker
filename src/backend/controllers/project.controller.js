@@ -10,8 +10,8 @@ const createOneProject = async (event, data) => {
   return await crudFunctions.createOne(post, Project);
 }
 
-async function editOneProject(oldName, newName) {
-  const filter = { "name": oldName };
+async function editOneProject(taskId, newName) {
+  const filter = { "_id": taskId };
   const update = { $set: {"name": newName }}
   return await crudFunctions.editOne(filter, update, Project);
 }
