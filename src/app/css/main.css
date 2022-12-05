@@ -1,4 +1,3 @@
-/* @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap'); */
 * {
   margin: 0;
   padding: 0;
@@ -54,7 +53,7 @@ input, button {
     background: none;
 }
 
-#new-task-input {
+#task-search {
     flex: 1 1 0%;
     background-color: var(--darker);
     padding: 1rem;
@@ -64,11 +63,7 @@ input, button {
     font-size: 1.25rem;
 }
 
-#new-task-input::placeholder {
-    color: var(--gray);
-}
-
-#new-task-submit {
+#button-search {
     color: var(--pink);
     font-size: 1.25rem;
     font-weight: 700;
@@ -77,6 +72,27 @@ input, button {
     -webkit-text-fill-color: transparent;
     cursor: pointer;
     transition: 0.4s;
+}
+
+#task-search::placeholder {
+    color: var(--gray);
+}
+
+#new-task-submit {
+    color: var(--pink);
+    margin-right: 0px;
+    margin-left: auto;
+    font-size: 1.25rem;
+    font-weight: 700;
+    background-image: linear-gradient(to left, var(--pink), var(--purple));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    cursor: pointer;
+    transition: 0.4s;
+}
+
+.div-add-task {
+    display: flex;
 }
 
 #new-task-submit:hover {
@@ -162,56 +178,7 @@ main {
 	color: crimson;
 } 
 
-
-
-/* .content {
-    padding-left: 10%;
-    padding-top: 10%;
-} */
-
-/* .form {
-    padding-left: 10%;
-    padding-top: 10%;
-    margin: auto;
-    max-width: 80%;
-    text-align: center;
-} */
-
-/* .form2 {
-    padding-left: 10%;
-    padding-top: 50%;
-    margin: auto;
-    max-width: 80%;
-    text-align: center;
-} */
-
-/* input[type='submit'], button, [aria-label]{
-    cursor: pointer;
-} */
-
-/* #edit-box{
-    display: none;
-    max-width: 80%;
-    margin: auto;
-    margin-top: 10px;
-} */
-
-/* .bottom-float {
-    padding-right: 2.5em;
-    padding-bottom: 2.5em;
-    position: fixed;
-    bottom: 0;
-    right: 0;
-} */
-
-/* .bottom-right-icon {
-    height: 50px;
-    width: 50px;
-} */
-/* .bottom-right-icon:hover {
-    opacity: 0.8;
-} */
-
-/* .refreshButton{
-    margin-top: 2em;
-} */
+.icon {
+    background: url("../images/search.png") no-repeat;
+    background-size: 20px;
+}

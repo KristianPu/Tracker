@@ -6,6 +6,8 @@ const API = {
         resize: () => ipcRenderer.send("app/resize"),
         minimize: () => ipcRenderer.send("app/minimize"),
     },
+    getAllLikeProjects: (filter) => ipcRenderer.send("app/getAllLikeProjects", filter),
+    getProjectByName: (data) => ipcRenderer.send("app/getProjectByName", data),
     getAllProjects: () => ipcRenderer.invoke("app/getAllProjects"),
     postOneProject: (data) => ipcRenderer.send("app/postOneProject", data),
     editOneProject: (oldName, newName) => ipcRenderer.send("app/editOneProject", oldName, newName),

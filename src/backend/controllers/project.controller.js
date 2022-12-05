@@ -1,8 +1,16 @@
 const Project = require("../models/project.model");
 const { crudFunctions } = require("../repositories");
 
+const getProjectByName = async (event, name) => {
+  return await Project.findOne({name})
+}
+
 const getAllProjects = async () => {
   return await crudFunctions.getAll(Project);
+}
+
+const getAllLikeProjects = async (filter) => {
+  return await Project.find(filter, {name:1, _id:0});
 }
 
 const createOneProject = async (event, data) => {
@@ -22,7 +30,9 @@ async function deleteOneProject(id) {
 
 module.exports = {
     getAllProjects,
+    getProjectByName,
     createOneProject,
     editOneProject,
     deleteOneProject,
+    getAllLikeProjects
 }

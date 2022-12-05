@@ -34,10 +34,13 @@ const createWindow = () => {
   window.loadFile(path.join(__dirname, '/app/index.html'));
 };
 
+// removes input lag - possible to change in future
+app.disableHardwareAcceleration(); 
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
 app.on('ready', createWindow);
+// app.disableHardwareAcceleration(); 
 
 // Quit when all windows are closed, except on macOS. There, it's common
 // for applications and their menu bar to stay active until the user quits
@@ -73,6 +76,10 @@ ipcMain.on("app/minimize", () => {
 })
 
 // Project CRUD
+ipcMain.on("app/getProjectByName", (event, data) => projectController.getProjectByName(event, data))
+
+ipcMain.on("app/getAllLikeProjects", (event, data) => projectController.getAllLikeProjects(event, data))
+
 ipcMain.handle("app/getAllProjects", () => projectController.getAllProjects());
 
 ipcMain.on("app/postOneProject", (event, data) => projectController.createOneProject(event, data));

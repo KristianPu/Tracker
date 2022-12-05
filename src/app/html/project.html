@@ -11,10 +11,13 @@
     <app-navbar></app-navbar>
 
     <div class="header">
-      <h1>Project</h1>
-      <form id="new-task-form">
-        <input type="text" id="new-task-input" placeholder="What are you working on?" />
+      <div class="div-add-task">
+        <h1>Project</h1>
         <input type="submit" id="new-task-submit" value="Add task" />
+      </div>
+      <form id="new-task-form">
+        <input type="text" id="task-search" placeholder="Search..." />
+        <button type="submit" id="button-search">Search</button>
       </form>
     </div>
 
@@ -34,36 +37,9 @@
         </div>
       </section>
     </main>
-    <!-- <div class="form">
-      <form  id="taskForm" class="card">
-        <input type="text" id="projectName" placeholder="New Project Name">
-        <input type="submit" value="Add">
-      </form>
-
-      <p>You have:</p>
-      <p id="counter"></p>
-
-      <form id="editForm" class="card">
-        <input type="text" id="oldName" name="old name" placeholder="old name" />
-        <input type="text" id="newName" name="new name" placeholder="new name" />
-        <button id="updateitem">Update</button>
-      </form>
-      <button class="refreshButton" id="refresh">Get All</button>
-
-      <table>
-        <tr class="to-do">
-          <th><h3>To-Do:</h3></th>
-        </tr>
-        <tbody id="tasks">
-        </tbody>
-      </table>
-    </div> -->
-
-    <!-- <record-float></record-float> -->
     
     <script src="../js/components/navbar.component.js" type="module"></script>
     <script src="../js/modules/project.js" type="module"></script>
     <script src="../renderer.js" defer type="module"></script>
-    <script src="../main.js"></script>
   </body>
 </html>

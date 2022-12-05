@@ -2,6 +2,10 @@ async function getAll () {
     return await app.getAllProjects();
 }
 
+async function getOne (data) {
+	return await app.getProjectByName(data);
+}
+
 async function postOne (args) {
     await app.postOneProject(args);
 }
@@ -14,15 +18,28 @@ async function deleteOne (args) {
     await app.deleteOneProject(args);
 }
 
+async function getAllLike (filter) {
+	await app.getAllLikeProjects(filter)
+}
+
 window.addEventListener('load', async () => {
 
 	const form = document.querySelector("#new-task-form");
 	const input = document.querySelector("#new-task-input");
 	const list_el = document.querySelector("#tasks");
+	const search = document.querySelector("#button-search");
+	const task_search = document.querySelector("#task-search");
 	const list_tasks_obj = JSON.parse(await getAll());
 	showTasks(list_tasks_obj);
 
-	async function showTasks (list) {
+	search.addEventListener('click', async () => {
+		const inputName = task_search.value
+		const task = await getAllLike({name: new RegExp('^'+inputName+'$', "i")});
+		showTasks([task])
+		console.log(task)
+	})
+
+	function showTasks (list) {
 
 		list_el.replaceChildren()
 
@@ -80,15 +97,16 @@ window.addEventListener('load', async () => {
 	}
 
 	// slusa Add task button
-	form.addEventListener('submit', async (e) => {
-		e.preventDefault();
+	// form.addEventListener('submit', async (e) => {
+	// 	e.preventDefault();
 
-		//naziv task-a
-		const task = input.value;
-		await postOne(task);
-		input.value = '';
+	// 	const task = input.value;
+	// 	const newTask = await postOne(task);
+	// 	console.log(`New task added ${newTask}`)
+	// 	input.value = '';
 
-		const list_tasks_obj = JSON.parse(await getAll());
-		showTasks(list_tasks_obj);
-	});
+	// 	const list_tasks_obj = JSON.parse(await getAll());
+	// 	console.log(list_tasks_obj)
+	// 	showTasks(list_tasks_obj);
+	// });
 });
