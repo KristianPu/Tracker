@@ -1,11 +1,6 @@
 const  { ipcRenderer, contextBridge } = require("electron");
 
 const API = {
-    window: {
-        close: () => ipcRenderer.send("app/close"),
-        resize: () => ipcRenderer.send("app/resize"),
-        minimize: () => ipcRenderer.send("app/minimize"),
-    },
     getAllLikeProjects: (filter) => ipcRenderer.send("app/getAllLikeProjects", filter),
     getProjectByName: (data) => ipcRenderer.send("app/getProjectByName", data),
     getAllProjects: () => ipcRenderer.invoke("app/getAllProjects"),

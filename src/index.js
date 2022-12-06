@@ -18,7 +18,7 @@ const createWindow = () => {
   window = new BrowserWindow({
     width: 1200,
     height: 800,
-    // frame: false, // temp solution to see devTools/
+    // frame: false, // COMMENTED TO SEE DEVTOOLS
     show: false,
     useContentSize: true,
     webPreferences: {
@@ -28,14 +28,14 @@ const createWindow = () => {
   });
   window.on("ready-to-show", window.show);
   
-  // remove the menu completely
-  // window.setMenu(null);
+  // removes menu bar completely
+  window.setMenu(null);
 
   window.loadFile(path.join(__dirname, '/app/index.html'));
 };
 
-// removes input lag - possible to change in future
-app.disableHardwareAcceleration(); 
+// makes application run faster 
+// app.disableHardwareAcceleration(); 
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
@@ -58,22 +58,6 @@ app.on('activate', () => {
     createWindow();
   }
 });
-
-ipcMain.on("app/close", () => {
-  app.quit();
-})
-
-ipcMain.on("app/resize", async () => {
-  if (window.isMaximized()) {
-    window.unmaximize();
-  } else {
-    window.maximize();
-  }
-})
-
-ipcMain.on("app/minimize", () => {
-  window.minimize();
-})
 
 // Project CRUD
 ipcMain.on("app/getProjectByName", (event, data) => projectController.getProjectByName(event, data))

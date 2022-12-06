@@ -1,11 +1,7 @@
+// COMPONENT EXAMPLE
 class Navbar extends HTMLElement {
     connectedCallback(){
         this.innerHTML = `
-        <div class="title-bar">
-            <span class="title-bar-link" id="minimize"><img class="title-icons" src="../images/minimize.png" alt="Minimize"></span>
-            <span class="title-bar-link" id="resize"><img class="title-icons" src="../images/full-screen.png" alt="Resize"></span>
-            <span class="title-bar-link" id="close-app"><img class="title-icons" src="../images/exit.png" alt="Exit"></span>
-        </div>
         <div class="container">
             <nav>
                 <a href="project.html"><img class="left-nav-icons" src="../../app/icons/project.png" alt="project"></a>
@@ -18,4 +14,4 @@ class Navbar extends HTMLElement {
     }
 }
 
-customElements.define('app-navbar', Navbar);
+customElements.define('app-navbar', Navbar)
