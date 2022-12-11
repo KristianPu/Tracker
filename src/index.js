@@ -5,6 +5,12 @@ require('electron-reload')(__dirname);
 require("./backend/models");
 require('dotenv').config();
 
+process.env.NODE_ENV = 'development'
+
+const isDev = process.env.NODE_ENV !== 'production';
+
+const isMac = process.platform === 'darwin';
+
 let window;
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
@@ -24,18 +30,25 @@ const createWindow = () => {
     webPreferences: {
       nodeIntegration: true,
       preload: path.join(__dirname + "/backend/preload.js"),
+      devTools: true
     }
   });
+
   window.on("ready-to-show", window.show);
   
   // removes menu bar completely
   window.setMenu(null);
 
   window.loadFile(path.join(__dirname, '/app/index.html'));
+  
+  if (isDev) {
+    window.webContents.openDevTools();
+  }
 };
 
 // makes application run faster 
 // app.disableHardwareAcceleration(); 
+
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.

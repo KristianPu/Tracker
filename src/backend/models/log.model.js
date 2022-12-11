@@ -1,6 +1,4 @@
 const { model, Schema } = require("mongoose");
-const { newProjectSchema } = require("./project.model");
-const { newUserSchema } = require("./user.model");
 
 const newLogSchema = new Schema({
     timeSpent: {

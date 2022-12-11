@@ -2,6 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tracker</title>
     <link rel="stylesheet" href="../css/main.css" />
     <link rel="stylesheet" href="../css/navbar.css" />
@@ -12,8 +13,8 @@
 
     <div class="header">
       <div class="div-add-task">
-        <h1>Project</h1>
-        <input type="submit" id="new-task-submit" value="Add task" />
+        <button type="submit" class="btn" id="submit-button">Add task</button>
+        <form-popup></form-popup>
       </div>
       <form id="new-task-form">
         <input type="text" id="task-search" placeholder="Search..." />
@@ -39,6 +40,7 @@
     </main>
     
     <script src="../js/components/navbar.component.js" type="module"></script>
+    <script src="../js/components/formPopup.component.js" type="module"></script>
     <script src="../js/modules/project.js" type="module"></script>
   </body>
 </html>

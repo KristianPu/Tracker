@@ -1,4 +1,3 @@
-// COMPONENT EXAMPLE
 class Navbar extends HTMLElement {
     connectedCallback(){
         this.innerHTML = `

@@ -22,15 +22,32 @@ async function getAllLike (filter) {
 	await app.getAllLikeProjects(filter)
 }
 
+let popup = document.getElementById('popup');
+function openPopup() {
+	popup.classList.add('open-popup');
+}
+function closePopup() {
+	popup.classList.remove('open-popup');
+}
+
 window.addEventListener('load', async () => {
 
-	const form = document.querySelector("#new-task-form");
-	const input = document.querySelector("#new-task-input");
+	// const form = document.querySelector("#new-task-form");
+	// const input = document.querySelector("#new-task-input");
+	const buttonSubmit = document.querySelector('#submit-button')
 	const list_el = document.querySelector("#tasks");
 	const search = document.querySelector("#button-search");
 	const task_search = document.querySelector("#task-search");
 	const list_tasks_obj = JSON.parse(await getAll());
 	showTasks(list_tasks_obj);
+
+	buttonSubmit.addEventListener('click', async () => {
+		openPopup()
+		const buttonCancel = document.querySelector('#cancel-button')
+		buttonCancel.addEventListener('click', async () => {
+			closePopup()
+		})
+	})
 
 	search.addEventListener('click', async () => {
 		const inputName = task_search.value
