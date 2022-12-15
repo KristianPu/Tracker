@@ -9,8 +9,8 @@ const getAllProjects = async () => {
   return await crudFunctions.getAll(Project);
 }
 
-const getAllLikeProjects = async (filter) => {
-  return await Project.find(filter, {name:1, _id:0});
+const getAllLikeProjects = async (data) => {
+  return await Project.find({"name": `/${data}/`});
 }
 
 const createOneProject = async (event, data) => {

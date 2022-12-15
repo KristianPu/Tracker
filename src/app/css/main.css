@@ -20,6 +20,8 @@
 --gray: #6b7280;
 }
 
+.hide { display: none; }
+
 body {
     background-color: var(--dark);
     display: flex;

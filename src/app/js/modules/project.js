@@ -23,12 +23,33 @@ async function getAllLike (filter) {
 }
 
 let popup = document.getElementById('popup');
+
 function openPopup() {
 	popup.classList.add('open-popup');
 }
+
 function closePopup() {
 	popup.classList.remove('open-popup');
 }
+
+// const tasks = document.querySelectorAll('.task')
+
+// function liveSearch() {
+// 	let task_search_input = document.querySelector("#task-search").value
+// 	for (const task of tasks) {
+// 		console.log(task.querySelector('.content').querySelector('.text').value)
+// 		if (task.querySelector('.content').querySelector('.text').value.toLowerCase().includes(task_search_input.toLowerCase())) {
+// 			task.classList.replace('hide', 'task')
+// 		} else {
+// 			task.classList.replace('task', 'hide')
+// 		}
+// 	}
+// }
+
+// let search_input = document.getElementById("task-search")
+// search_input.addEventListener('keyup', () => {
+// 	liveSearch()
+// })
 
 window.addEventListener('load', async () => {
 
@@ -41,6 +62,25 @@ window.addEventListener('load', async () => {
 	const list_tasks_obj = JSON.parse(await getAll());
 	showTasks(list_tasks_obj);
 
+	let search_input = document.getElementById("task-search")
+	search_input.addEventListener('keyup', () => {
+		liveSearch()
+	})
+
+	const tasks = document.querySelectorAll('.task')
+
+	function liveSearch() {
+		let task_search_input = document.querySelector("#task-search").value
+		for (const task of tasks) {
+			console.log(task.querySelector('.content').querySelector('.text').value)
+			if (task.querySelector('.content').querySelector('.text').value.toLowerCase().includes(task_search_input.toLowerCase())) {
+				task.classList.replace('hide', 'task')
+			} else {
+				task.classList.replace('task', 'hide')
+			}
+		}
+	}
+
 	buttonSubmit.addEventListener('click', async () => {
 		openPopup()
 		const buttonCancel = document.querySelector('#cancel-button')
@@ -50,21 +90,27 @@ window.addEventListener('load', async () => {
 	})
 
 	search.addEventListener('click', async () => {
-		const inputName = task_search.value
-		const task = await getAllLike({name: new RegExp('^'+inputName+'$', "i")});
-		showTasks([task])
-		console.log(task)
+		const inputValue = task_search.value
+		console.log(inputValue)
+		const task = await getAllLike(inputValue);
+		showTasks(task)
 	})
 
-	function showTasks (list) {
+	
+
+	async function showTasks (list) {
 
 		list_el.replaceChildren()
 
-		list.forEach(task => {
+		for (let task of list) {
 
+			// Creates a new div element in the DOM
 			const task_el = document.createElement('div');
 			task_el.classList.add('task');
 
+			// This code creates a div element in the DOM
+			// and adds the class 'content' to that div and
+			// appends it to another div called task_el
 			const task_content_el = document.createElement('div');
 			task_content_el.classList.add('content');
 			task_el.appendChild(task_content_el);
@@ -73,7 +119,7 @@ window.addEventListener('load', async () => {
 			task_input_el.classList.add('text');
 			task_input_el.type = 'text';
 			task_input_el.value = task.name;
-			task_input_el.setAttribute('readonly', 'readonly');
+			// task_input_el.setAttribute('readonly', 'readonly');
 			task_content_el.appendChild(task_input_el);
 
 			const task_actions_el = document.createElement('div');
@@ -110,7 +156,7 @@ window.addEventListener('load', async () => {
 				list_el.removeChild(task_el);
 				await deleteOne(task._id);
 			});
-		})
+		}
 	}
 
 	// slusa Add task button
