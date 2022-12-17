@@ -14,8 +14,8 @@ const getAllLikeProjects = async (data) => {
 }
 
 const createOneProject = async (event, data) => {
-  const post = { "name": data }
-  return await crudFunctions.createOne(post, Project);
+  console.log(data)
+  return await crudFunctions.createOne(data, Project);
 }
 
 async function editOneProject(taskId, newName) {

@@ -5,9 +5,9 @@ require('electron-reload')(__dirname);
 require("./backend/models");
 require('dotenv').config();
 
-// process.env.NODE_ENV = 'development'
+process.env.NODE_ENV = 'development'
 
-const isDev = process.env.NODE_ENV !== 'production';
+const isDev = process.env.NODE_ENV === 'development';
 
 const isMac = process.platform === 'darwin';
 
@@ -22,7 +22,7 @@ if (require('electron-squirrel-startup')) {
 const createWindow = () => {
 
   window = new BrowserWindow({
-    width: isDev ? 1800 : 1200,
+    width: isDev ? 1600 : 1200,
     height: 800,
     // frame: false, // COMMENTED TO SEE DEVTOOLS
     show: false,

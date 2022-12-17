@@ -120,13 +120,14 @@ main {
 	display: flex;
 	justify-content: space-between;
 	background-color: var(--darkest);
-	padding: 1rem;
+	padding: 0.75rem;
 	border-radius: 1rem;
 	margin-bottom: 1rem;
 }
 
 .task .content {
 	flex: 1 1 0%;
+    padding-right: 1rem;
 }
 
 .task .content .text {
@@ -146,10 +147,10 @@ main {
 	margin: 0 -0.5rem;
 }
 /* After adding edit on tasks uncomment */
-/* .task .actions button {
+.task .actions button {
 	cursor: pointer;
 	margin: 0 0.5rem;
-	font-size: 100vw;
+	font-size: 18px;
 	font-weight: 700;
 	text-transform: uppercase;
 	transition: 0.4s;
@@ -167,7 +168,7 @@ main {
 	background-image: linear-gradient(to right, var(--pink), var(--purple));
 	-webkit-background-clip: text;
 	-webkit-text-fill-color: transparent;
-} */
+}
 
 .task .actions .delete {
 	color: crimson;
@@ -181,8 +182,9 @@ main {
 /* PopUp Form */
 .btn {
     padding: 10px 20px;
-    background: #fff;
+    background: var(--darker);
     border: 0;
+    color: var(--pink);
     outline: none;
     cursor: pointer;
     font-size: 20px;
@@ -190,9 +192,14 @@ main {
     border-radius: 30px;
 }
 
+.btn:hover {
+    color: #027804;
+    transition: ease-in-out 0.3s;
+}
+
 .popup {
     width: 400px;
-    background: #fff;
+    background: #16432a;
     border-radius: 6px;
     position: absolute;
     top: 0;
@@ -200,7 +207,7 @@ main {
     transform: translate(-50%, -50%) scale(0.1);
     text-align: center;
     padding: 0 30px 30px;
-    color: #333;
+    color: rgb(255, 255, 255);
     visibility: hidden;
     transition: transform 0.4s, top 0.4s;
 }
@@ -215,7 +222,7 @@ main {
     width: 100%;
     margin-top: 30px;
     padding: 10px 0;
-    background: #6fd649;
+    background: #53ce26;
     color: #fff;
     border: 0;
     outline: none;
@@ -245,8 +252,14 @@ input[type=text], input[type=date] {
     width: 100%;
     padding: 12px 20px;
     margin: 8px 0;
+    color: var(--light);
     display: inline-block;
     border: 1px solid #ccc;
     border-radius: 4px;
     box-sizing: border-box;
   }
+
+input[type=text], input[type=date]::placeholder {
+    color: var(--light);
+    font-size: 1rem;
+}

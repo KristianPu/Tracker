@@ -32,30 +32,9 @@ function closePopup() {
 	popup.classList.remove('open-popup');
 }
 
-// const tasks = document.querySelectorAll('.task')
-
-// function liveSearch() {
-// 	let task_search_input = document.querySelector("#task-search").value
-// 	for (const task of tasks) {
-// 		console.log(task.querySelector('.content').querySelector('.text').value)
-// 		if (task.querySelector('.content').querySelector('.text').value.toLowerCase().includes(task_search_input.toLowerCase())) {
-// 			task.classList.replace('hide', 'task')
-// 		} else {
-// 			task.classList.replace('task', 'hide')
-// 		}
-// 	}
-// }
-
-// let search_input = document.getElementById("task-search")
-// search_input.addEventListener('keyup', () => {
-// 	liveSearch()
-// })
-
 window.addEventListener('load', async () => {
 
-	// const form = document.querySelector("#new-task-form");
-	// const input = document.querySelector("#new-task-input");
-	const buttonSubmit = document.querySelector('#submit-button')
+	const buttonSubmit = document.querySelector('#add-task')
 	const list_el = document.querySelector("#tasks");
 	const search = document.querySelector("#button-search");
 	const task_search = document.querySelector("#task-search");
@@ -72,7 +51,6 @@ window.addEventListener('load', async () => {
 	function liveSearch() {
 		let task_search_input = document.querySelector("#task-search").value
 		for (const task of tasks) {
-			console.log(task.querySelector('.content').querySelector('.text').value)
 			if (task.querySelector('.content').querySelector('.text').value.toLowerCase().includes(task_search_input.toLowerCase())) {
 				task.classList.replace('hide', 'task')
 			} else {
@@ -84,14 +62,22 @@ window.addEventListener('load', async () => {
 	buttonSubmit.addEventListener('click', async () => {
 		openPopup()
 		const buttonCancel = document.querySelector('#cancel-button')
+		const buttonSubmit = document.querySelector('#submit-button')
+		const popForm = document.getElementById('pop-form');
 		buttonCancel.addEventListener('click', async () => {
 			closePopup()
+		})
+		buttonSubmit.addEventListener('click', async () => {
+			const formInputs = document.querySelectorAll('#pop-form input')
+			const filteredData = Array.from(formInputs).reduce((acc, input) => ({
+				...acc, [input.id]: input.value
+			}), {})
+			await postOne(filteredData)
 		})
 	})
 
 	search.addEventListener('click', async () => {
 		const inputValue = task_search.value
-		console.log(inputValue)
 		const task = await getAllLike(inputValue);
 		showTasks(task)
 	})
@@ -153,23 +139,10 @@ window.addEventListener('load', async () => {
 			});
 	
 			task_delete_el.addEventListener('click', async (e) => {
+				e.preventDefault()
 				list_el.removeChild(task_el);
 				await deleteOne(task._id);
 			});
 		}
 	}
-
-	// slusa Add task button
-	// form.addEventListener('submit', async (e) => {
-	// 	e.preventDefault();
-
-	// 	const task = input.value;
-	// 	const newTask = await postOne(task);
-	// 	console.log(`New task added ${newTask}`)
-	// 	input.value = '';
-
-	// 	const list_tasks_obj = JSON.parse(await getAll());
-	// 	console.log(list_tasks_obj)
-	// 	showTasks(list_tasks_obj);
-	// });
 });
