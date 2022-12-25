@@ -70,7 +70,7 @@ app.on('activate', () => {
 });
 
 // Project CRUD
-ipcMain.on("app/getProjectByName", (event, data) => projectController.getProjectByName(event, data))
+ipcMain.handle("app/getProjectById", (event, id) => projectController.getProjectById(event, id))
 
 ipcMain.on("app/getAllLikeProjects", (event, data) => projectController.getAllLikeProjects(event, data))
 

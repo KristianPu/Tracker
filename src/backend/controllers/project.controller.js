@@ -1,36 +1,35 @@
 const Project = require("../models/project.model");
 const { crudFunctions } = require("../repositories");
 
-const getProjectByName = async (event, name) => {
-  return await Project.findOne({name})
+const getProjectById = async (event, id) => {
+  return await crudFunctions.getOne(id, Project);
 }
 
 const getAllProjects = async () => {
   return await crudFunctions.getAll(Project);
 }
 
-const getAllLikeProjects = async (data) => {
+const getAllLikeProjects = async (event, data) => {
   return await Project.find({"name": `/${data}/`});
 }
 
 const createOneProject = async (event, data) => {
-  console.log(data)
   return await crudFunctions.createOne(data, Project);
 }
 
-async function editOneProject(taskId, newName) {
+async function editOneProject(event, taskId, data) {
   const filter = { "_id": taskId };
-  const update = { $set: {"name": newName }}
+  const update = { $set: data}
   return await crudFunctions.editOne(filter, update, Project);
 }
 
-async function deleteOneProject(id) {
+async function deleteOneProject(event, id) {
   return await crudFunctions.deleteOne(id, Project);
 }
 
 module.exports = {
     getAllProjects,
-    getProjectByName,
+    getProjectById,
     createOneProject,
     editOneProject,
     deleteOneProject,

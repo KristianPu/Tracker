@@ -7,7 +7,7 @@ const newProjectSchema = new Schema({
         writable: true,
     },
     timeSpent: {
-        type: Number,
+        type: String,
     },
     startDate: {
         type: Date,

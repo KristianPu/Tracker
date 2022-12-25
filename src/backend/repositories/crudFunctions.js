@@ -7,6 +7,14 @@ const getAll = async (Table) => {
     }
 }
 
+const getOne = async (id, Table) => {
+  try {
+    return JSON.stringify(await Table.findOne({id}));
+  } catch (e) {
+    console.log(e);
+  }
+}
+
 const createOne = async (data, Table) => {
     try {
         await Table.create(data);
@@ -25,7 +33,7 @@ const editOne = async (filter, update, Table) => {
 
 const deleteOne = async (id, Table) => {
     try {
-        await Table.deleteOne({_id: id})
+        await Table.deleteOne({ _id: `${id}`.trim() })
       } catch (e) {
         console.log(e)
       }
@@ -33,6 +41,7 @@ const deleteOne = async (id, Table) => {
 
 module.exports = {
     getAll,
+    getOne,
     createOne,
     editOne,
     deleteOne,

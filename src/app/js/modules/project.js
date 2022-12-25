@@ -2,8 +2,8 @@ async function getAll () {
     return await app.getAllProjects();
 }
 
-async function getOne (data) {
-	return await app.getProjectByName(data);
+async function getOne (id) {
+	return await app.getProjectById(id);
 }
 
 async function postOne (args) {
@@ -32,9 +32,15 @@ function closePopup() {
 	popup.classList.remove('open-popup');
 }
 
+// Validate Form Inputs
+const validateInputs = () => {
+	const nameValue = document.getElementById('name').value;
+	console.log(nameValue)
+}
+
 window.addEventListener('load', async () => {
 
-	const buttonSubmit = document.querySelector('#add-task')
+	const buttonAddTask = document.querySelector('#add-task')
 	const list_el = document.querySelector("#tasks");
 	const search = document.querySelector("#button-search");
 	const task_search = document.querySelector("#task-search");
@@ -59,21 +65,29 @@ window.addEventListener('load', async () => {
 		}
 	}
 
-	buttonSubmit.addEventListener('click', async () => {
+	buttonAddTask.addEventListener('click', async (e) => {
+		e.preventDefault()
 		openPopup()
+		console.log('buttonAddTask button')
 		const buttonCancel = document.querySelector('#cancel-button')
 		const buttonSubmit = document.querySelector('#submit-button')
-		const popForm = document.getElementById('pop-form');
-		buttonCancel.addEventListener('click', async () => {
+		buttonCancel.addEventListener('click', (e) => {
+			// e.preventDefault()
 			closePopup()
-		})
-		buttonSubmit.addEventListener('click', async () => {
+		}, {once: true})
+
+		buttonSubmit.addEventListener('click', async (e) => {
+			// e.preventDefault()
 			const formInputs = document.querySelectorAll('#pop-form input')
 			const filteredData = Array.from(formInputs).reduce((acc, input) => ({
 				...acc, [input.id]: input.value
 			}), {})
+			const nameValue = document.getElementById('name').value;
+			console.log(nameValue)
 			await postOne(filteredData)
-		})
+			closePopup()
+			document.getElementById('pop-form').reset()
+		}, {once: true})
 	})
 
 	search.addEventListener('click', async () => {
@@ -82,13 +96,15 @@ window.addEventListener('load', async () => {
 		showTasks(task)
 	})
 
-	
+	 
 
 	async function showTasks (list) {
 
 		list_el.replaceChildren()
 
 		for (let task of list) {
+			
+			const taskObject = list_tasks_obj.filter((taskObj) => taskObj._id === task._id)
 
 			// Creates a new div element in the DOM
 			const task_el = document.createElement('div');
@@ -105,7 +121,7 @@ window.addEventListener('load', async () => {
 			task_input_el.classList.add('text');
 			task_input_el.type = 'text';
 			task_input_el.value = task.name;
-			// task_input_el.setAttribute('readonly', 'readonly');
+			task_input_el.setAttribute('readonly', 'readonly');
 			task_content_el.appendChild(task_input_el);
 
 			const task_actions_el = document.createElement('div');
@@ -128,20 +144,39 @@ window.addEventListener('load', async () => {
 
 			task_edit_el.addEventListener('click', async (e) => {
 				if (task_edit_el.innerText.toLowerCase() == "edit") {
-					task_edit_el.innerText = "Save";
-					task_input_el.removeAttribute("readonly");
-					task_input_el.focus();
-				} else {
-					await editOne(task._id, task_input_el.value)
-					task_edit_el.innerText = "Edit";
-					task_input_el.setAttribute("readonly", "readonly");
+					let form = document.querySelectorAll('#pop-form')
+					openPopup()
+					form[0].elements.name.value = taskObject[0]['name']
+					form[0].elements.startDate.value = taskObject[0]['startDate'].substr(0,10)
+					form[0].elements.endDate.value = taskObject[0]['endDate'] === null ? 'mm-dd-yyyy' : taskObject[0]['endDate'].substr(0,10)
+					form[0].elements.timeSpent.value = taskObject[0]['timeSpent']
+
+					const buttonCancel = document.querySelector('#cancel-button')
+					const buttonSubmit = document.querySelector('#submit-button')
+
+					buttonCancel.addEventListener('click', async () => {
+						closePopup()
+						document.getElementById('pop-form').reset()
+					}, {once: true})
+
+					buttonSubmit.addEventListener('click', async () => {
+						const formInputs = document.querySelectorAll('#pop-form input')
+						const filteredData = Array.from(formInputs).reduce((acc, input) => ({
+							...acc, [input.id]: input.value
+						}), {})
+						await editOne(task._id, filteredData)
+						closePopup()
+						const list_tasks_obj = JSON.parse(await getAll());
+						showTasks(list_tasks_obj);
+						document.getElementById('pop-form').reset()
+					}, {once: true})
 				}
 			});
 	
 			task_delete_el.addEventListener('click', async (e) => {
 				e.preventDefault()
-				list_el.removeChild(task_el);
 				await deleteOne(task._id);
+				list_el.removeChild(task_el);
 			});
 		}
 	}
