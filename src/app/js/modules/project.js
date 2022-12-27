@@ -33,25 +33,26 @@ function closePopup() {
 }
 
 // Parse Form Inputs
-const parseInputs = (filteredData, taskObject) => {
-	if (filteredData['name'] === taskObject[0].name) {
-		delete filteredData['name']
-	}
-	if (typeof taskObject[0].startDate === "string") {
-		if (filteredData['startDate'] === taskObject[0].startDate.substr(0,10)) {
-			delete filteredData['startDate']
-		}
-	}
-	if (typeof taskObject[0].endDate === "string") {
-		if (filteredData['endDate'] === taskObject[0].endDate.substr(0,10)) {
-			delete filteredData['endDate']
-		}
-	}
-	if (filteredData['timeSpent'] === taskObject[0].timeSpent) {
-		delete filteredData['timeSpent']
-	}
-	return filteredData
-}
+// const parseInputs = (filteredData, taskObject) => {
+// 	if (filteredData['name'] === taskObject[0].name) {
+// 		delete filteredData['name']
+// 	}
+// 	if (typeof taskObject[0].startDate === "string") {
+// 		if (filteredData['startDate'] === taskObject[0].startDate.substr(0,10)) {
+// 			delete filteredData['startDate']
+// 		}
+// 	}
+// 	if (typeof taskObject[0].endDate === "string") {
+// 		if (filteredData['endDate'] === taskObject[0].endDate.substr(0,10)) {
+// 			delete filteredData['endDate']
+// 		}
+// 	}
+// 	if (filteredData['timeSpent'] === taskObject[0].timeSpent) {
+// 		delete filteredData['timeSpent']
+// 	}
+// 	return filteredData
+// }
+
 const isRequired = value => value === '' ? false : true;
 const isBetween = (length, min, max) => length < min || length > max ? false : true;
 const timeFormat = value => /^(?:\d+[hms]?|\d+h(?:[ ]*[0-5]?\dm)?(?:[ ]*[0-5]?\ds)?|\d+m[ ]*[0-5]?\ds)$/.test(value);
@@ -114,6 +115,7 @@ const checkStartDate = () => {
 }
 
 const checkTimeSpent = () => {
+	
 	let valid = false;
 	const timeSpentEl = document.querySelector('#timeSpent');
 	const timeSpent = timeSpentEl.value.trim();

@@ -5,7 +5,7 @@ require('electron-reload')(__dirname);
 require("./backend/models");
 require('dotenv').config();
 
-process.env.NODE_ENV = 'development'
+process.env.NODE_ENV = 'production'
 
 const isDev = process.env.NODE_ENV === 'development';
 
@@ -22,7 +22,7 @@ if (require('electron-squirrel-startup')) {
 const createWindow = () => {
 
   window = new BrowserWindow({
-    width: isDev ? 1600 : 1200,
+    width: isDev ? 1600 : 1000,
     height: 800,
     // frame: false, // COMMENTED TO SEE DEVTOOLS
     show: false,
@@ -39,7 +39,8 @@ const createWindow = () => {
   // removes menu bar completely
   window.setMenu(null);
 
-  window.loadFile(path.join(__dirname, '/app/index.html'));
+  // window.loadFile(path.join(__dirname, '/app/index.html'));
+  window.loadFile(path.join(__dirname, '/app/html/project.html'));
   
   if (isDev) {
     window.webContents.openDevTools();
