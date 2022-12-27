@@ -32,8 +32,8 @@ body {
 
 .header {
     padding: 2rem 1rem;
-    max-width: 800px;
-    width: 100%;
+    max-width: 1400px;
+    width: 90%;
     margin: 0 auto;
 }
 
@@ -100,8 +100,8 @@ input, button {
 
 main {
 	flex: 1 1 0%;
-	max-width: 800px;
-	width: 100%;
+	max-width: 1400px;
+	width: 90%;
 	margin: 0 auto;
 }
 

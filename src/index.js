@@ -24,6 +24,10 @@ const createWindow = () => {
   window = new BrowserWindow({
     width: isDev ? 1600 : 1000,
     height: 800,
+    maxWidth: 2000,
+    maxHeight: 1200,
+    minHeight: 400,
+    minWidth: 1000,
     // frame: false, // COMMENTED TO SEE DEVTOOLS
     show: false,
     useContentSize: true,
