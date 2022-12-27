@@ -146,7 +146,7 @@ main {
 	display: flex;
 	margin: 0 -0.5rem;
 }
-/* After adding edit on tasks uncomment */
+
 .task .actions button {
 	cursor: pointer;
 	margin: 0 0.5rem;
@@ -262,4 +262,12 @@ input[type=text], input[type=date] {
 input[type=text], input[type=date]::placeholder {
     color: var(--light);
     font-size: 1rem;
+}
+
+.error {
+    border: 1px solid rgb(255, 0, 0)!important;
+}
+
+.success {
+    border: 1px solid #53ce26!important;
 }

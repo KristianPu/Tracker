@@ -32,10 +32,98 @@ function closePopup() {
 	popup.classList.remove('open-popup');
 }
 
-// Validate Form Inputs
-const validateInputs = () => {
-	const nameValue = document.getElementById('name').value;
-	console.log(nameValue)
+// Parse Form Inputs
+const parseInputs = (filteredData, taskObject) => {
+	if (filteredData['name'] === taskObject[0].name) {
+		delete filteredData['name']
+	}
+	if (typeof taskObject[0].startDate === "string") {
+		if (filteredData['startDate'] === taskObject[0].startDate.substr(0,10)) {
+			delete filteredData['startDate']
+		}
+	}
+	if (typeof taskObject[0].endDate === "string") {
+		if (filteredData['endDate'] === taskObject[0].endDate.substr(0,10)) {
+			delete filteredData['endDate']
+		}
+	}
+	if (filteredData['timeSpent'] === taskObject[0].timeSpent) {
+		delete filteredData['timeSpent']
+	}
+	return filteredData
+}
+const isRequired = value => value === '' ? false : true;
+const isBetween = (length, min, max) => length < min || length > max ? false : true;
+const timeFormat = value => /^(?:\d+[hms]?|\d+h(?:[ ]*[0-5]?\dm)?(?:[ ]*[0-5]?\ds)?|\d+m[ ]*[0-5]?\ds)$/.test(value);
+const showError = (input, message) => {
+    // get the form-field element
+    const formField = input.parentElement;
+    // add the error class
+    input.classList.remove('success');
+    input.classList.add('error');
+	console.log(input)
+
+    // show the error message
+    const error = formField.querySelector('small');
+    error.textContent = message;
+};
+const showSuccess = (input) => {
+    // get the form-field element
+    const formField = input.parentElement;
+
+    // remove the error class
+    input.classList.remove('error');
+    input.classList.add('success');
+
+    // hide the error message
+    const error = formField.querySelector('small');
+    error.textContent = '';
+}
+
+const checkName = () => {
+
+    let valid = false;
+    const min = 3,
+        max = 25;
+	const nameEl = document.querySelector('#name');
+    const name = nameEl.value.trim();
+
+    if (!isRequired(name)) {
+        showError(nameEl, 'Name cannot be blank.');
+    } else if (!isBetween(name.length, min, max)) {
+        showError(nameEl, `Name must be between ${min} and ${max} characters.`)
+    } else {
+        showSuccess(nameEl);
+        valid = true;
+    }
+    return valid;
+}
+
+const checkStartDate = () => {
+
+	let valid = false;
+	const startDateEl = document.querySelector('#startDate');
+	const startDate = startDateEl.value.trim();
+	if (!isRequired(startDate)) {
+		showError(startDateEl, 'Start Date cannot be empty')
+	} else {
+		showSuccess(startDateEl);
+		valid = true;
+	}
+	return valid;
+}
+
+const checkTimeSpent = () => {
+	let valid = false;
+	const timeSpentEl = document.querySelector('#timeSpent');
+	const timeSpent = timeSpentEl.value.trim();
+	if (!timeFormat(timeSpent)) {
+		showError(timeSpentEl, 'Time Spent should be like 1h 30m')
+	} else {
+		showSuccess(timeSpentEl)
+		valid = true;
+	}
+	return valid
 }
 
 window.addEventListener('load', async () => {
@@ -72,22 +160,24 @@ window.addEventListener('load', async () => {
 		const buttonCancel = document.querySelector('#cancel-button')
 		const buttonSubmit = document.querySelector('#submit-button')
 		buttonCancel.addEventListener('click', (e) => {
-			// e.preventDefault()
+			e.preventDefault()
 			closePopup()
 		}, {once: true})
 
 		buttonSubmit.addEventListener('click', async (e) => {
-			// e.preventDefault()
+			e.preventDefault()
 			const formInputs = document.querySelectorAll('#pop-form input')
 			const filteredData = Array.from(formInputs).reduce((acc, input) => ({
 				...acc, [input.id]: input.value
 			}), {})
-			const nameValue = document.getElementById('name').value;
-			console.log(nameValue)
-			await postOne(filteredData)
-			closePopup()
-			document.getElementById('pop-form').reset()
-		}, {once: true})
+			let isValid = checkName() && checkStartDate() && checkTimeSpent()
+			let isFormValid = isValid
+			if (isFormValid) {
+				await postOne(filteredData)
+				closePopup()
+				document.getElementById('pop-form').reset()
+			}
+		})
 	})
 
 	search.addEventListener('click', async () => {
@@ -106,13 +196,9 @@ window.addEventListener('load', async () => {
 			
 			const taskObject = list_tasks_obj.filter((taskObj) => taskObj._id === task._id)
 
-			// Creates a new div element in the DOM
 			const task_el = document.createElement('div');
 			task_el.classList.add('task');
 
-			// This code creates a div element in the DOM
-			// and adds the class 'content' to that div and
-			// appends it to another div called task_el
 			const task_content_el = document.createElement('div');
 			task_content_el.classList.add('content');
 			task_el.appendChild(task_content_el);
@@ -149,7 +235,7 @@ window.addEventListener('load', async () => {
 					form[0].elements.name.value = taskObject[0]['name']
 					form[0].elements.startDate.value = taskObject[0]['startDate'].substr(0,10)
 					form[0].elements.endDate.value = taskObject[0]['endDate'] === null ? 'mm-dd-yyyy' : taskObject[0]['endDate'].substr(0,10)
-					form[0].elements.timeSpent.value = taskObject[0]['timeSpent']
+					form[0].elements.timeSpent.value = taskObject[0]['timeSpent']			
 
 					const buttonCancel = document.querySelector('#cancel-button')
 					const buttonSubmit = document.querySelector('#submit-button')
@@ -159,17 +245,24 @@ window.addEventListener('load', async () => {
 						document.getElementById('pop-form').reset()
 					}, {once: true})
 
-					buttonSubmit.addEventListener('click', async () => {
+					buttonSubmit.addEventListener('click', async (e) => {
+						e.preventDefault();
 						const formInputs = document.querySelectorAll('#pop-form input')
 						const filteredData = Array.from(formInputs).reduce((acc, input) => ({
 							...acc, [input.id]: input.value
 						}), {})
-						await editOne(task._id, filteredData)
-						closePopup()
-						const list_tasks_obj = JSON.parse(await getAll());
-						showTasks(list_tasks_obj);
-						document.getElementById('pop-form').reset()
-					}, {once: true})
+						// const parsedInputsObject = parseInputs(filteredData, taskObject)
+						let isValid = checkName() && checkStartDate() && checkTimeSpent()
+						let isFormValid = isValid
+						if (isFormValid) {
+								await editOne(task._id, filteredData).then(async () => {
+									closePopup()
+									const list_tasks_obj = JSON.parse(await getAll());
+									showTasks(list_tasks_obj);
+									document.getElementById('pop-form').reset()
+								})
+						}
+					})
 				}
 			});
 	
