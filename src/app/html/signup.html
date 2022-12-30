@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Security-Policy" content="script-src 'self'" />
+    <title>Sign Up</title>
+    <link rel="stylesheet" href="../css/login.css" />
+  </head>
+  <body>
+    <div class="container">
+        <div class="signup-box">
+        <h1>Sign Up</h1>
+        <form id="register-form">
+            <div class="login-field">
+                <label>First Name</label>
+                <input type="text" id="fname" name="fname" placeholder="John" />
+                <small></small>
+            </div>
+            <div class="login-field">
+                <label>Last Name</label>
+                <input type="text" id="lname" name="lname" placeholder="Doe" />
+                <small></small>
+            </div>
+            <div class="login-field">
+                <label>Email</label>
+                <input type="text" id="email" name="email" placeholder="Email@email.com" />
+                <small></small>
+            </div>
+            <div class="login-field">
+                <label>Password</label>
+                <input type="password" id="password" name="password" placeholder="AAaa11!!" />
+                <small></small>
+            </div>
+            <div class="login-field">
+                <label>Confirm Password</label>
+                <input type="password" id="cpassword" name="cpassword" placeholder="AAaa11!!" />
+                <small></small>
+            </div>
+            <button type="submit" id="submit-button">Submit</button>
+        </form>
+        </div>
+        <p class="para-2">
+        Already have an account? <a href="login.html">Login here</a>
+        </p>
+    </div>
+    <script src="../js/modules/register.js" type="module"></script>
+  </body>
+</html>

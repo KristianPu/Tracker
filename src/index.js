@@ -1,11 +1,11 @@
 const { app, BrowserWindow, ipcMain } = require('electron');
-const { projectController } = require('./backend/controllers')
+const { projectController, userController } = require('./backend/controllers')
 const path = require('path');
 require('electron-reload')(__dirname);
 require("./backend/models");
 require('dotenv').config();
 
-process.env.NODE_ENV = 'production'
+process.env.NODE_ENV = 'development'
 
 const isDev = process.env.NODE_ENV === 'development';
 
@@ -44,7 +44,7 @@ const createWindow = () => {
   window.setMenu(null);
 
   // window.loadFile(path.join(__dirname, '/app/index.html'));
-  window.loadFile(path.join(__dirname, '/app/html/project.html'));
+  window.loadFile(path.join(__dirname, '/app/html/login.html'));
   
   if (isDev) {
     window.webContents.openDevTools();
@@ -86,6 +86,13 @@ ipcMain.on("app/postOneProject", (event, data) => projectController.createOnePro
 ipcMain.on("app/editOneProject", (event, oldName, newName) => projectController.editOneProject(event, oldName, newName));
 
 ipcMain.on("app/deleteOneProject", (event, id) => projectController.deleteOneProject(event, id));
+
+// User login
+ipcMain.handle("app/login", (event, email, password) => userController.loginUser(event, email, password))
+
+ipcMain.on("app/register", (event, firstName, lastName, email, password) => userController.registerUser(event, firstName, lastName, email, password))
+
+ipcMain.handle("app/getOneUser", (event, email) => userController.findOneUser(event, email))
 
 // // Log CRUD
 // ipcMain.handle("app/getAllLogs", () => logController.getAllLogs());

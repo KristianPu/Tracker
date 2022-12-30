@@ -62,7 +62,6 @@ const showError = (input, message) => {
     // add the error class
     input.classList.remove('success');
     input.classList.add('error');
-	console.log(input)
 
     // show the error message
     const error = formField.querySelector('small');
@@ -115,7 +114,7 @@ const checkStartDate = () => {
 }
 
 const checkTimeSpent = () => {
-	
+
 	let valid = false;
 	const timeSpentEl = document.querySelector('#timeSpent');
 	const timeSpent = timeSpentEl.value.trim();
@@ -158,7 +157,6 @@ window.addEventListener('load', async () => {
 	buttonAddTask.addEventListener('click', async (e) => {
 		e.preventDefault()
 		openPopup()
-		console.log('buttonAddTask button')
 		const buttonCancel = document.querySelector('#cancel-button')
 		const buttonSubmit = document.querySelector('#submit-button')
 		buttonCancel.addEventListener('click', (e) => {

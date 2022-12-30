@@ -7,6 +7,10 @@ const API = {
     postOneProject: (data) => ipcRenderer.send("app/postOneProject", data),
     editOneProject: (oldName, newName) => ipcRenderer.send("app/editOneProject", oldName, newName),
     deleteOneProject: (data) => ipcRenderer.send("app/deleteOneProject", data),
+
+    login: (email, password) => ipcRenderer.invoke("app/login", email, password),
+    register: (firstName, lastName, email, password) => ipcRenderer.send("app/register", firstName, lastName, email, password),
+    getOneUser: (email) => ipcRenderer.invoke("app/getOneUser", email),
     
     // getAllLogs: () => ipcRenderer.invoke("app/getAllLogs"),
     // postOneLog: (data) => ipcRenderer.send("app/postOneLog", data),
