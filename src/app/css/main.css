@@ -15,12 +15,10 @@
 --darker: #1F2937;
 --darkest: #111827;
 --light: #EEE;
---pink: #38c975;
---purple: rgb(47, 129, 112);
+--green: #38c975;
+--teal: rgb(47, 129, 112);
 --gray: #6b7280;
 }
-
-.hide { display: none; }
 
 body {
     background-color: var(--dark);
@@ -59,11 +57,12 @@ input, button {
 }
 
 #button-search {
-    color: var(--pink);
+    color: var(--green);
     font-size: 1.25rem;
     font-weight: 700;
-    background-image: linear-gradient(to right, var(--pink), var(--purple));
+    background-image: linear-gradient(to right, var(--green), var(--teal));
     -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
     cursor: pointer;
     transition: 0.4s;
@@ -74,13 +73,14 @@ input, button {
 }
 
 #new-task-submit {
-    color: var(--pink);
+    color: var(--green);
     margin-right: 0px;
     margin-left: auto;
     font-size: 2vw; 
     font-weight: 700;
-    background-image: linear-gradient(to left, var(--pink), var(--purple));
+    background-image: linear-gradient(to left, var(--green), var(--teal));
     -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
     cursor: pointer;
     transition: 0.4s;
@@ -139,7 +139,7 @@ main {
 }
 
 .task .content .text:not(:read-only) {
-	color: var(--pink);
+	color: var(--green);
 }
 
 .task .actions {
@@ -165,8 +165,9 @@ main {
 }
 
 .task .actions .edit {
-	background-image: linear-gradient(to right, var(--pink), var(--purple));
+	background-image: linear-gradient(to right, var(--green), var(--teal));
 	-webkit-background-clip: text;
+    background-clip: text;
 	-webkit-text-fill-color: transparent;
 }
 
@@ -184,7 +185,7 @@ main {
     padding: 10px 20px;
     background: var(--darker);
     border: 0;
-    color: var(--pink);
+    color: var(--green);
     outline: none;
     cursor: pointer;
     font-size: 20px;
@@ -271,3 +272,5 @@ input[type=text], input[type=date]::placeholder {
 .success {
     border: 1px solid #53ce26!important;
 }
+
+.hide { display: none; }

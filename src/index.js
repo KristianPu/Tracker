@@ -5,10 +5,7 @@ require('electron-reload')(__dirname);
 require("./backend/models");
 require('dotenv').config();
 
-process.env.NODE_ENV = 'development'
-
-const isDev = process.env.NODE_ENV === 'development';
-
+const isDev = process.env.NODE_ENV;
 const isMac = process.platform === 'darwin';
 
 let window;

@@ -21,8 +21,4 @@ const newUserSchema = new Schema({
     },
 );
 
-newUserSchema.methods.comparePassword = function(password) {
-    return bcrypt.compareSync(password, this.hash_password);
-  };
-
 module.exports = model("User", newUserSchema);

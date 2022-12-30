@@ -2,10 +2,6 @@ async function getAll () {
     return await app.getAllProjects();
 }
 
-async function getOne (id) {
-	return await app.getProjectById(id);
-}
-
 async function postOne (args) {
     await app.postOneProject(args);
 }
@@ -32,50 +28,21 @@ function closePopup() {
 	popup.classList.remove('open-popup');
 }
 
-// Parse Form Inputs
-// const parseInputs = (filteredData, taskObject) => {
-// 	if (filteredData['name'] === taskObject[0].name) {
-// 		delete filteredData['name']
-// 	}
-// 	if (typeof taskObject[0].startDate === "string") {
-// 		if (filteredData['startDate'] === taskObject[0].startDate.substr(0,10)) {
-// 			delete filteredData['startDate']
-// 		}
-// 	}
-// 	if (typeof taskObject[0].endDate === "string") {
-// 		if (filteredData['endDate'] === taskObject[0].endDate.substr(0,10)) {
-// 			delete filteredData['endDate']
-// 		}
-// 	}
-// 	if (filteredData['timeSpent'] === taskObject[0].timeSpent) {
-// 		delete filteredData['timeSpent']
-// 	}
-// 	return filteredData
-// }
-
 const isRequired = value => value === '' ? false : true;
 const isBetween = (length, min, max) => length < min || length > max ? false : true;
 const timeFormat = value => /^(?:\d+[hms]?|\d+h(?:[ ]*[0-5]?\dm)?(?:[ ]*[0-5]?\ds)?|\d+m[ ]*[0-5]?\ds)$/.test(value);
+
 const showError = (input, message) => {
-    // get the form-field element
     const formField = input.parentElement;
-    // add the error class
     input.classList.remove('success');
     input.classList.add('error');
-
-    // show the error message
     const error = formField.querySelector('small');
     error.textContent = message;
 };
 const showSuccess = (input) => {
-    // get the form-field element
     const formField = input.parentElement;
-
-    // remove the error class
     input.classList.remove('error');
     input.classList.add('success');
-
-    // hide the error message
     const error = formField.querySelector('small');
     error.textContent = '';
 }
@@ -251,7 +218,6 @@ window.addEventListener('load', async () => {
 						const filteredData = Array.from(formInputs).reduce((acc, input) => ({
 							...acc, [input.id]: input.value
 						}), {})
-						// const parsedInputsObject = parseInputs(filteredData, taskObject)
 						let isValid = checkName() && checkStartDate() && checkTimeSpent()
 						let isFormValid = isValid
 						if (isFormValid) {
@@ -268,8 +234,7 @@ window.addEventListener('load', async () => {
 	
 			task_delete_el.addEventListener('click', async (e) => {
 				e.preventDefault()
-				await deleteOne(task._id);
-				list_el.removeChild(task_el);
+				await deleteOne(task._id).then(() => list_el.removeChild(task_el))
 			});
 		}
 	}

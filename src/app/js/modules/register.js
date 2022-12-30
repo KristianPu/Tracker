@@ -1,12 +1,9 @@
-// UNCOMMENT WHEN BACKEND LOGIC IS DONE
 async function createUser (fName, lName, email, pass) {
-    // Kod kreacije usera hashirati password i tako spremiti u bazu
     await app.register(fName, lName, email, pass);
 }
 
 const isRequired = value => value === '' ? false : true;
 const isBetween = (length, min, max) => length < min || length > max ? false : true;
-const isPassFormat = value => /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/.test(value);
 const isPassLength = value => /.{8,}/.test(value);
 const isPassSpecial = value => /(?=.*?[#?!@$%^&*-])/.test(value);
 const isPassNumber = value => /(?=.*?[0-9])/.test(value);
@@ -134,7 +131,7 @@ const checkConfirmPassword = () => {
     const password = passwordEl.value.trim();
     const confirmPasswordEl = document.querySelector('#cpassword');
     const confirmPassword = confirmPasswordEl.value.trim();
-    // GET FROM PASSWORD INPUT AND COMPARE WITH CONFIRM PASSWORD INPUT
+
     if (password !== confirmPassword) {
         showError(confirmPasswordEl, 'Enter valid password.');
     } else {
