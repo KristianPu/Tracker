@@ -149,7 +149,7 @@ window.addEventListener('load', async () => {
 
 	search.addEventListener('click', async () => {
 		const inputValue = task_search.value
-		const task = await getAllLike(inputValue);
+		const task = await getAllLike(inputValue)
 		showTasks(task)
 	})
 

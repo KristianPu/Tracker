@@ -1,0 +1,11 @@
+<div style="background: #ffffff; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><pre style="margin: 0; line-height: 125%"><span style="color: #0000ff">const</span> registerUser = async (event, firstName, lastName, email, password) =&gt; {
+    <span style="color: #0000ff">try</span> {
+        <span style="color: #0000ff">let</span> newUser = <span style="color: #0000ff">new</span> User({firstName, lastName, email, hash_password: password});
+        newUser.hash_password = bcrypt.hashSync(password, parseInt(process.env.SALT));
+        newUser.save();
+    } <span style="color: #0000ff">catch</span> (error) {
+        <span style="color: #0000ff">return</span> error.message;
+    }
+    <span style="color: #0000ff">return</span> <span style="color: #0000ff">true</span>
+}
+</pre></div>

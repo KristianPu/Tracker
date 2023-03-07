@@ -25,7 +25,6 @@ const createWindow = () => {
     maxHeight: 1200,
     minHeight: 400,
     minWidth: 1000,
-    // frame: false, // COMMENTED TO SEE DEVTOOLS
     show: false,
     useContentSize: true,
     webPreferences: {
@@ -52,7 +51,6 @@ const createWindow = () => {
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
 app.on('ready', createWindow);
-// app.disableHardwareAcceleration(); 
 
 // Quit when all windows are closed, except on macOS. There, it's common
 // for applications and their menu bar to stay active until the user quits
@@ -90,30 +88,3 @@ ipcMain.handle("app/login", (event, email, password) => userController.loginUser
 ipcMain.on("app/register", (event, firstName, lastName, email, password) => userController.registerUser(event, firstName, lastName, email, password))
 
 ipcMain.handle("app/getOneUser", (event, email) => userController.findOneUser(event, email))
-
-// // Log CRUD
-// ipcMain.handle("app/getAllLogs", () => logController.getAllLogs());
-
-// ipcMain.on("app/postOneLog", (event, data) => logController.createOneLog(event, data));
-
-// ipcMain.on("app/editOneLog", (event, oldName, newName) => logController.editOneLog(oldName, newName));
-
-// ipcMain.on("app/deleteOneLog", (event, id) => logController.deleteOneLog(id));
-
-// // Organization CRUD
-// ipcMain.handle("app/getAllOrganizations", () => organizationController.getAllOrganizations());
-
-// ipcMain.on("app/postOneOrganization", (event, data) => organizationController.createOneOrganization(event, data));
-
-// ipcMain.on("app/editOneOrganization", (event, oldName, newName) => organizationController.editOneOrganization(oldName, newName));
-
-// ipcMain.on("app/deleteOneOrganization", (event, id) => organizationController.deleteOneOrganization(id));
-
-// // User CRUD
-// ipcMain.handle("app/getAllUsers", () => userController.getAllUsers());
-
-// ipcMain.on("app/postOneUser", (event, data) => userController.createOneUser(event, data));
-
-// ipcMain.on("app/editOneUser", (event, oldName, newName) => userController.editOneUser(oldName, newName));
-
-// ipcMain.on("app/deleteOneUser", (event, id) => userController.deleteOneUser(id));

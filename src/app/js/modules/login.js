@@ -13,7 +13,9 @@ window.addEventListener('load', async () => {
 
     buttonSubmit.addEventListener('click', async (e) => {
         e.preventDefault()
-        let isValid = checkEmailInDb() && await validatePassword()
+        const validatedEmail = await checkEmailInDb()
+        const validatedPassword = await validatePassword()
+        let isValid = validatedEmail && validatedPassword
         let isFormValid = isValid
         if (isFormValid) {
             window.location.href='../html/project.html'
