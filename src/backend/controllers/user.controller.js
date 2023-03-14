@@ -14,9 +14,9 @@ const registerUser = async (event, firstName, lastName, email, password) => {
     return true
 }
 
-const loginUser = async (event, email, password) => {
+const loginUser = (event, email, password) => {
 
-    const getOne = await User.find({"email": `${email}`});
+    const getOne = User.find({"email": `${email}`});
     if (!getOne[0]) {
         return false;
     } else {

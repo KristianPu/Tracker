@@ -30,7 +30,7 @@ const createWindow = () => {
     webPreferences: {
       nodeIntegration: true,
       preload: path.join(__dirname + "/backend/preload.js"),
-      devTools: true
+      devTools: isDev ? true : false
     }
   });
 
